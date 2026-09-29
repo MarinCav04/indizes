@@ -12,7 +12,7 @@ with sqlite3.connect('person.db') as connection:
         )
     """)
 
-    person = Person('en')
+    person = Person('en') ## Object of Person class from mimesis library
 
     list_of_persons = []
     for p in range(500000):
@@ -20,9 +20,8 @@ with sqlite3.connect('person.db') as connection:
         last_name = person.last_name()
         list_of_persons.append((first_name, last_name))
 
+    ## executemany() instead of execute() to insert multiple names at once
     cursor.executemany("""
         INSERT INTO person (first_name, last_name)
         VALUES (?, ?)
     """, list_of_persons)
-
-    print ("Daten erfolgreich in die Datenbank eingefügt.")
